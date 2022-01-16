@@ -1,0 +1,40 @@
+
+-- * type 0 for detail movie, type 1 for detail tv
+-- * isFav 0 for not favorite, isFav 1 for favorite
+CREATE TABLE detail_Entity(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    idDetail INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    overview TEXT NOT NULL,
+    genres TEXT NOT NULL,
+    backdropPath TEXT,
+    subtitleDetail TEXT NOT NULL,
+    type INTEGER,
+    isFav INTEGER DEFAULT 0
+);
+
+insertDetailTv:
+INSERT OR IGNORE INTO detail_Entity
+(idDetail, title, overview,genres,backdropPath,subtitleDetail,type,isFav) VALUES (?,?,?,?,?,?,1,0);
+
+insertDetailMovie:
+INSERT OR IGNORE INTO detail_Entity
+(idDetail, title, overview,genres,backdropPath,subtitleDetail,type,isFav) VALUES (?,?,?,?,?,?,0,0);
+
+getDetailMovie:
+SELECT * FROM detail_Entity WHERE idDetail == :idDetail AND type == 0;
+
+getDetailTV:
+SELECT * FROM detail_Entity WHERE idDetail == :idDetail AND type == 1;
+
+setDetailMovieToFav:
+UPDATE detail_Entity SET isFav = 1  WHERE idDetail = :idTable AND type == 0;
+
+setDetailMovieToUnFav:
+UPDATE detail_Entity SET isFav = 0  WHERE idDetail = :idTable AND type == 0;
+
+setDetailTvToFav:
+UPDATE detail_Entity SET isFav = 1  WHERE idDetail = :idTable AND type == 1;
+
+setDetailTvToUnFav:
+UPDATE detail_Entity SET isFav = 0  WHERE idDetail = :idTable AND type == 1;

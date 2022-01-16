@@ -1,0 +1,37 @@
+
+-- type for determine wether is tv popular or tv top rated
+-- 0 for type popular and 1 for type top rated
+
+-- isFav 0 for false and 1 for t rue
+CREATE TABLE tv_Entity(
+    id INTEGER NOT NULL PRIMARY KEY,
+    overview TEXT NOT NULL,
+    name TEXT NOT NULL,
+    genres TEXT,
+    posterPath TEXT,
+    type REAL,
+    isFav REAL DEFAULT 0
+);
+
+selectTvPopular:
+SELECT * FROM tv_Entity WHERE type == 0;
+
+insertTvPopular:
+INSERT OR IGNORE INTO tv_Entity
+VALUES (?,?,?,?,?,0,?);
+
+selectTvTopRated:
+SELECT * FROM tv_Entity WHERE type == 1;
+
+insertTvTopRated:
+INSERT OR IGNORE INTO tv_Entity
+VALUES (?,?,?,?,?,1,?);
+
+selectAllTvFav:
+SELECT * FROM tv_Entity WHERE isFav == 1;
+
+setTvToFav:
+UPDATE tv_Entity SET isFav = 1 WHERE id = :id;
+
+unFavTv:
+UPDATE tv_Entity SET isFav = 0 WHERE id = :id;

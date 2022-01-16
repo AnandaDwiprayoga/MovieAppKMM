@@ -1,0 +1,39 @@
+
+-- type for determine wether is movie popular or movie top rated
+-- 0 for type popular and 1 for type top rated
+
+-- isFav 0 for false and 1 for t rue
+CREATE TABLE movie_Entity(
+    id INTEGER NOT NULL PRIMARY KEY,
+    overview TEXT NOT NULL,
+    title TEXT NOT NULL,
+    genres TEXT,
+    posterPath TEXT,
+    type TEXT,
+    isFav TEXT DEFAULT 0
+);
+
+selectMoviePopular:
+SELECT * FROM movie_Entity WHERE type == "0";
+
+insertMoviePopular:
+INSERT OR IGNORE INTO movie_Entity
+(id, overview, title,genres, posterPath, type, isFav)
+VALUES (?,?,?,?,?,"0",?);
+
+selectMovieTopRated:
+SELECT * FROM movie_Entity WHERE type == "1";
+
+insertMovieTopRated:
+INSERT OR IGNORE INTO movie_Entity
+(id, overview, title,genres, posterPath, type, isFav)
+VALUES (?,?,?,?,?,"1",?);
+
+selectAllMovieFav:
+SELECT * FROM movie_Entity WHERE isFav == "1";
+
+setMovieToFav:
+UPDATE movie_Entity SET isFav = "1" WHERE id = :id;
+
+unFavMovie:
+UPDATE movie_Entity SET isFav = "0" WHERE id = :id;
